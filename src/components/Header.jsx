@@ -9,7 +9,7 @@ function Header() {
         <div className="w-16 h-16 ml-2">
           <img src={logo} alt="its the logo" className="h-16 w-16" />
         </div>
-        <Link to="/nav" className="h-20 w-20 text-7xl mt-[-18px]">&#8801;</Link>
+        <Link to="/nav" className="h-20 w-20 text-7xl mt-[-18px] pl-5">&#8801;</Link>
       </header>
       {/* Header comp */}
         </>

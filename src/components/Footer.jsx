@@ -4,18 +4,19 @@ import home from "../../public/home.png";
 import noti from "../../public/noti.png";
 import profile from "../../public/profile.png";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { getAllCartItems } from "../store/cartslice.js";
 import { useNavigate } from "react-router-dom";
 import { getOrder} from "../store/orderslice.js"
 function Footer() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.user);
 
   const order = (e) => {
     e.preventDefault();
     const data = {
-      userId: "6633886f35f919c0926f17ae",
+      userId: currentUser._id,
     };
     dispatch(getOrder(data));
     navigate("/app/profile");
@@ -24,7 +25,7 @@ function Footer() {
   const getAllcartData = (e) => {
     e.preventDefault();
     const data = {
-      userId: "6633886f35f919c0926f17ae",
+      userId: currentUser._id,
     };
     dispatch(getAllCartItems(data));
     navigate("/app/cart");

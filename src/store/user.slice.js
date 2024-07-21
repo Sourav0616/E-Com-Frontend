@@ -27,6 +27,36 @@ const userRegister = createAsyncThunk(
   }
 );
 
+const addUserAddaress = createAsyncThunk(
+  "useraddaress",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/user/addaress",
+        {
+          adrs: data.adrs,
+          city: data.city,
+          ldmk: data.ldmk,
+          dist: data.dist,
+          mob: data.mob,
+          pin: data.pin,
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${data.token}`,
+            }
+        }
+      );
+      const result = response.data; // Correctly access the response data
+      return result;
+    } catch (error) {
+      // Reject with the actual error
+      return rejectWithValue(error.message || "Failed to fetch user token");
+    }
+  }
+);
+
 const userLogin = createAsyncThunk(
   "userlogin",
   async (data, { rejectWithValue }) => {
@@ -55,7 +85,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     loading: true,
-    user: "",
+    user: {},
     login: "",
     error: false,
   },
@@ -72,11 +102,28 @@ const userSlice = createSlice({
       state.error = true;
     });
 
+
+    builder.addCase(addUserAddaress.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(addUserAddaress.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(addUserAddaress.rejected, (state, action) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+
+
     builder.addCase(userLogin.pending, (state, action) => {
       state.loading = true;
     });
     builder.addCase(userLogin.fulfilled, (state, action) => {
-      state.login = action.payload;
+      state.login = action.payload.accesstoken;
+      state.user = action.payload;
+      console.log(action.payload)
       state.loading = false;
     });
     builder.addCase(userLogin.rejected, (state, action) => {
@@ -86,5 +133,5 @@ const userSlice = createSlice({
   },
 });
 
-export { userRegister, userLogin };
+export { userRegister, userLogin , addUserAddaress};
 export default userSlice;

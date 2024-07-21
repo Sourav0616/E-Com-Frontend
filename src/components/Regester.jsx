@@ -11,9 +11,9 @@ function Regester() {
   const navigate = useNavigate()
   const massage = useSelector((state)=> state.user.user)
   console.log(massage)
-  const email = useRef(null)
-  const name  = useRef(null)
-  const password = useRef(null)
+  const email = useRef("")
+  const name  = useRef("")
+  const password = useRef("")
 
  const regester = (e)=>{
   e.preventDefault();
@@ -23,10 +23,13 @@ function Regester() {
     password: password.current.value
   }
  dispatch(userRegister(data))
+ name.current.value = ""
+ email.current.value = ""
+ password.current.value = ""
  }
 
  useEffect(()=>{
-  if(massage != "" && massage == "Successfully Created"){
+  if(massage.name){
    navigate("/login")
   }
  },[regester , massage])

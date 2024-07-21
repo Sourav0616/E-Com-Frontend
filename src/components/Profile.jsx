@@ -1,29 +1,63 @@
 import { Link } from "react-router-dom";
-import fas from "../../public/fas.jpg";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 function Profile() {
-  const items = useSelector((state) => state.setorder.orderitems);
+  const navigate = useNavigate();
+  const items = useSelector((state) => state.order.orderitems);
+  const currentUser = useSelector((state) => state.user.user);
+  
+ const navTo = ()=>{
+  navigate("/addaress")
+
+ }
+ const navToo = ()=>{
+  navigate("/app/home")
+
+ }
+ useEffect(()=>{
+  if(!currentUser){
+    navigate("/login")
+    }
+ },[currentUser])
 
   return (
     <div className="h-[692px] w-[393px] bg-stone-200 flex flex-col">
       <section className="bg-pirple-500 min-h-[692px] scroll overflow-y-scroll mb-2 flex flex-col items-center">
         <div className="flex flex-col w-[370px] mt-2">
           <h1 className="text-xl font-bold">Name</h1>
-          <p className="font-semibold">Sourav Debnath</p>
+          <p className="font-semibold">{currentUser.name}</p>
         </div>
         <div className="flex flex-col w-[370px]">
           <h1 className="text-xl font-bold">Addaress</h1>
-          <div className="w-[373px] min-h-28 mt-2 bg-yellow-100 rounded-lg p-1 flex items-center">
-            <div className="w-[373px]">
-              <p className="mt-1 text-sm w-60 font-medium">
-                Bhakrai nagar , Phursungi , Teloc Colony ,Near Rajashree Sahu
-                Bank, Pune , 412308
-              </p>
-              <h2 className="mt-2 font-bold">9064333818</h2>
-            </div>
-            <button className="w-24 ml-2 h-10 bg-red-600 rounded-xl text-md font-bold text-center">
-              Change
-            </button>
+          <div className="w-[373px] mix-h-28 min-h-16 mt-2 bg-yellow-100 rounded-lg p-1 flex items-center">
+            {currentUser.addaress && currentUser.mobile ? (
+              <>
+                {" "}
+                <div className="w-[373px]">
+                  <p className="mt-1 capitalize w-[270px] font-semibold text-sm">
+                    {currentUser.addaress}
+                  </p>
+                  <h2 className="mt-2 font-bold">{currentUser.mobile}</h2>
+                </div>
+                <button className="w-24 ml-2 h-10 bg-yellow-400 rounded-xl text-md font-bold text-center"
+                onClick={()=> navTo()}
+                >
+                  Update
+                </button>
+              </>
+            ) : (
+              <>
+                {" "}
+                <div className=" text-2xl font-bold"> Add Your Addaress </div>
+                <button className="w-24 ml-12 h-10 bg-green-500 rounded-xl text-md font-bold text-center"
+                onClick={()=> navTo()}
+                >
+                  Add
+                </button>
+              </>
+            )}
           </div>
         </div>
         <div className="flex justify-between items-center w-[373px] mt-2">
@@ -40,6 +74,27 @@ function Profile() {
         </div>
 
         {/* Orders */}
+
+        {items.length < 1 ? (
+          <div className="h-[370px] items-center flex flex-col m-auto w-72 bg-yellow-100 rounded-2xl">
+            <img
+              src={
+                "https://mir-s3-cdn-cf.behance.net/projects/404/2f038b134324769.Y3JvcCwxMDEwLDc5MCwyNSww.png"
+              }
+              alt=""
+              className="h-[180px] mt-8 "
+            />
+            <h1 className="mt-6 text-md font-bold">
+              No Such Items In Cart !!!
+            </h1>
+            <button
+              className="mt-8 bg-slate-400 h-10 w-32 rounded-xl font-bold "
+              onClick={() => navToo()}
+            >
+              Shop Now
+            </button>
+          </div>
+        ) : null}
 
         {items &&
           items.length > 0 &&

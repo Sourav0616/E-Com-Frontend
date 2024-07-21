@@ -3,34 +3,34 @@ import logo from "../../public/comvectorstock45685575-removebg-preview.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getFetchAllProduct } from "../store/getdata.slice";
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userLogin } from "../store/user.slice.js";
 function Login() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
 
-  const loginMassage = useSelector((state)=> state.user.login)
+  const loginMassage = useSelector((state) => state.user.login);
 
   const click = (e) => {
     e.preventDefault();
     const data = {
       email: email.current.value,
-      password: password.current.value
-    }
-    dispatch(userLogin(data))
+      password: password.current.value,
+    };
+    dispatch(userLogin(data));
   };
 
-
-
-  useEffect(()=>{
-    if(loginMassage != "" && loginMassage == "ok"){
+  useEffect(() => {
+    if (loginMassage != "") {
       navigate("/app/home");
-      dispatch(getFetchAllProduct())
+      if (loginMassage != "") {
+        dispatch(getFetchAllProduct(loginMassage));
+      }
     }
-  },[click , loginMassage])
+  }, [click, loginMassage]);
 
   return (
     <div className="h-[852px] w-[393p]  bg-stone-200 flex flex-col m-auto overflow-hidden">

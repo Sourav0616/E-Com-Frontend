@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import cross from "../../public/cross.png";
-
+import { useDispatch  } from "react-redux";
 function Nav() {
   return (
     <div className="h-[852px] w-[393px] m-auto justify-between items-center bg-stone-200 overflow-hidden flex  flex-col">
@@ -16,7 +16,7 @@ function Nav() {
 
       <div className="w-96 h-[800px]  flex flex-col items-center ">
         <div className="h-[100%] w-[370px] p-16  flex flex-col justify-around items-center">
-          <a href=""> HOME</a>
+          <Link to="/app/home"> HOME</Link>
           <a href=""> ABOUT</a>
           <a href=""> PROFILE</a>
           <a href=""> HELP & SUPPORT</a>

@@ -18,11 +18,12 @@ import Addproduct from "./components/Addproduct.jsx";
 import Productcatagory from "./components/Productcatagory.jsx"
 import Indivisualproduct from "./components/Indivisualproduct.jsx"
 import Payment from "./components/Payment.jsx"
-
+import Addaress from "./components/Addaress.jsx";
 const router = createBrowserRouter([
   { path: "/", element: <Regester /> },
   { path: "/nav", element: <Nav /> },
   { path: "/login", element: <Login /> },
+  { path: "/addaress", element: <Addaress /> },
   { path: "/payment/:total", element: <Payment /> },
   {
     path: "/app",

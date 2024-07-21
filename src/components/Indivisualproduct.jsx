@@ -41,7 +41,7 @@ function Indivisualproducts() {
   return (
     <div className="h-[852px] w-[393px]   bg-stone-200 flex flex-col">
       <section className="bg-pirple-500 h-[850px] scroll overflow-auto mb-2 flex flex-col items-center">
-        <div className="h-20 w-96  flex justify-around items-center">
+        <div className="h-20 w-96 mt-2  flex justify-around items-center">
           <div className="w-24 h-16  bg-yellow-100 flex justify-center items-center text-md font-bold rounded-xl capitalize">
             {data.catagory}
           </div>
@@ -105,10 +105,12 @@ function Indivisualproducts() {
           </div>
 
           {/* Reviews */}
+          
           <div className="w-[373px] mt-2 h-auto  flex flex-col">
-            <h1 className="h-12 flex items-center font-bold text-2xl pl-2">
+          { data && data.review.length > 0 ? <h1 className="h-12 flex items-center font-bold text-2xl pl-2">
               Reviews
-            </h1>
+            </h1> : null }
+            
 
             {data && data.review.length > 0 && data.review.map((item)=>
             <div className="w-[373px] flex flex-col bg-yellow-100 mt-2 mb-2 rounded-xl p-2"

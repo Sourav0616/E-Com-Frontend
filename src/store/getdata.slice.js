@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const getFetchAllProduct = createAsyncThunk("getFetchAllProduct", async () => {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjMzODg2ZjM1ZjkxOWMwOTI2ZjE3YWUiLCJpYXQiOjE3MTQ2NTM0MzIsImV4cCI6MTcxNzI0NTQzMn0.Jt9kmIeHa6WcEuOpHYj5gqqUx3amgnqPh07yl-suj_Y";
-
+const getFetchAllProduct = createAsyncThunk("getFetchAllProduct", async (data) => {
+  const token = data
+  console.log(data)
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

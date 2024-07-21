@@ -32,7 +32,7 @@ import ocard from "../../public/ocard.png";
 import ocard1 from "../../public/ocard1.png";
 import Marquee from "react-fast-marquee";
 import { useSelector } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { useDispatch } from "react-redux";
 import { setData } from "../store/getdata.slice.js";
 import { setRenderProductCatagory } from "../store/setproductsrender.slice.js";
@@ -350,12 +350,12 @@ function Homeproducts() {
           <div className="h-32 overflow-scroll scroll  flex  mt-2">
             {/* comps */}
 
-            <button className="flex flex-col h-[100px] min-w-20 bg-yellow-100 justify-around items-center mr-4">
+            <Link to="https://www.sbicard.com/sprint/simplyClick?CS=Google" className="flex flex-col h-[100px] min-w-20 bg-yellow-100 justify-around items-center mr-4">
               <img src={scard} alt="" className="h-2 ml-10" />
               <img src={scard1} alt="" className="h-10" />
               <h1 className=" text-xs">Lifetime Free</h1>
               <h1 className=" font-bold text-sm mt-[-5px]">Apply Now</h1>
-            </button>
+            </Link>
 
             <button className="flex flex-col h-[100px] min-w-20 bg-yellow-100 justify-around items-center mr-4">
               <img src={hcard} alt="" className="h-2 ml-10" />

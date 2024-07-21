@@ -16,7 +16,7 @@ const store = configureStore({
     setproductrender : setProductRenderSlice.reducer,
     viewproduct : setViewSlice.reducer,
     setcart : cartSlice.reducer,
-    setorder : orderSlice.reducer,
+    order : orderSlice.reducer,
     user : userSlice.reducer,
     review : reviewSlice.reducer
   },

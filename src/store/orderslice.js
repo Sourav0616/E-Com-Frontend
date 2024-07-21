@@ -20,6 +20,36 @@ const setOrder = createAsyncThunk(
   }
 );
 
+const setReview = createAsyncThunk(
+  "setreview",
+  async (data, { rejectWithValue }) => {
+    console.log(data);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/product/review",
+        {
+          productId: data.productId,
+          text: data.text,
+          rating: data.rating,
+          orderId : data.orderId
+        },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${data.token}`,
+            }
+        }
+      );
+      const result = response.data; // Correctly access the response data
+      return result;
+    } catch (error) {
+      // Reject with the actual error
+      return rejectWithValue(error.message || "Failed to fetch user token");
+    }
+  }
+);
+
+
 const getOrder = createAsyncThunk(
   "getorder",
   async (data, { rejectWithValue }) => {
@@ -43,6 +73,7 @@ const orderSlice = createSlice({
   initialState: {
     orderitems: [],
     massage: "",
+    rmassage : "",
     loading: false,
     error: false,
   },
@@ -59,6 +90,22 @@ const orderSlice = createSlice({
       state.error = true;
     });
 
+
+    builder.addCase(setReview.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(setReview.fulfilled, (state, action) => {
+      state.rmassage = action.payload.massage;
+      state.orderitems = action.payload.data
+      state.loading = false;
+      console.log(action.payload)
+    });
+    builder.addCase(setReview.rejected, (state, action) => {
+      state.loading = false;
+      state.error = true;
+    });
+
+
     builder.addCase(getOrder.pending, (state, action) => {
       state.loading = true;
     });
@@ -73,5 +120,5 @@ const orderSlice = createSlice({
   },
 });
 
-export { setOrder, getOrder };
+export { setOrder, getOrder , setReview};
 export default orderSlice;
